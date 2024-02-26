@@ -1,0 +1,14 @@
+@use "./partials/variables" as v;
+@use "./partials/globals";
+@use "./partials/fonts" as font;
+@use "./partials/functions" as func;
+@use "./partials/utilities" as ut;
+@use "./partials/mixins" as mix;
+@use "./components/bio-card";
+@use "./components/container";
+
+body {
+  min-height: 100vh;
+  @include mix.flex-center(column);
+  padding: 1em;
+}

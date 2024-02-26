@@ -1,0 +1,45 @@
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    $left: str-slice($string, 1, $index - 1) + $replace;
+    $right: str-replace(
+      str-slice($string, $index + str-length($search)),
+      $search,
+      $replace
+    );
+    @return #{$left} + #{$right};
+  }
+  @return $string;
+}
+
+$sizes: (0.8, 0.9, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.3, 2.5, 2.7, 3, 3.5, 4, 5);
+$sizes-map: ();
+
+@each $size in $sizes {
+  $sizes-map: map-merge(
+    $sizes-map,
+    (
+      str-replace(#{$size}, ".", "p"): $size,
+    )
+  );
+}
+
+$classes: (
+  font: font-size,
+  gap: gap,
+  p: padding,
+  pl: padding-left,
+  pr: padding-right,
+  m: margin,
+  ml: margin-left,
+  mr: margin-right,
+);
+
+@each $class, $property in $classes {
+  @each $size, $value in $sizes-map {
+    .#{$class}-#{$size} {
+      #{$property}: #{$value * 1em};
+    }
+  }
+}

@@ -1,0 +1,53 @@
+$items-values: flex-start, flex-end, center;
+$content-values: center, flex-start, flex-end, space-around, space-between,
+  space-evenly;
+
+@function compareToFalse($v) {
+  @if ($v and $v !=_) {
+    @return true;
+  }
+  @return false;
+}
+
+@mixin flex(
+  $direction: false,
+  $justify: false,
+  $align: false,
+  $gap: false,
+  $isWrap: false
+) {
+  display: flex;
+  //   @if index((row, row-reverse, column, column-reverse), $direction) {
+  @if (compareToFalse($direction)) {
+    flex-direction: $direction;
+  }
+
+  //   @if index($content-values, $justify) {
+  @if compareToFalse($justify) {
+    justify-content: $justify;
+  }
+  @if compareToFalse($align) {
+    align-items: $align;
+  }
+
+  @if compareToFalse($gap) {
+    gap: $gap;
+  }
+
+  @if compareToFalse($isWrap) {
+    flex-wrap: wrap;
+  }
+}
+
+@mixin flex-center($direction: false) {
+  @include flex($direction, center, center);
+}
+@mixin flex-between() {
+  @include flex(_, space-between, center);
+}
+
+@mixin textGradient($direction, $colors) {
+  background: linear-gradient(to #{$direction}, #{$colors});
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

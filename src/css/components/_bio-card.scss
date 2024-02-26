@@ -1,0 +1,178 @@
+@use "../partials/functions";
+@use "../partials/fonts";
+@use "../partials/mixins" as mix;
+
+:root {
+  --footer-gradient: linear-gradient(to top, red, var(--lightGreen-lighter));
+
+  --send-btn-gradient: linear-gradient(
+    to bottom,
+    var(--pink),
+    var(--lightGreen)
+  );
+
+  --card-bg: var(--white);
+  --card-color: var(--darkBlue);
+
+  --body-bg: white;
+
+  --send-btn-color: var(--white);
+  &.dark {
+    --send-btn-color: var(--black);
+    --body-bg: var(--darkBlue);
+
+    --footer-gradient: linear-gradient(
+      to bottom,
+      var(--pink),
+      var(--lightGreen)
+    );
+
+    --send-btn-gradient: linear-gradient(
+      to bottom,
+
+      var(--lightGreen),
+      var(--white)
+    );
+    --card-bg: var(--darkBlue);
+    --card-color: var(--white);
+  }
+}
+
+body {
+  background: var(--body-bg) !important;
+}
+%btn-with-icon {
+  @include mix.flex-center();
+  $size: 3em;
+  height: $size;
+  width: $size;
+  padding: 0.5em;
+  border-radius: 50%;
+}
+.bio-card__padding-container {
+  padding-inline: 2em;
+}
+
+main {
+  @include mix.flex($direction: column, $align: center, $gap: 1em);
+}
+
+.bio-card {
+  @extend %font-sans;
+  width: 20em;
+  margin-inline: auto;
+  padding-top: 3em;
+  border-radius: 1em;
+  box-shadow: 0 0 20px rgba(128, 128, 128, 0.397);
+  .top {
+    @include mix.flex(column, _, center, 1em);
+  }
+  background-color: var(--card-bg);
+  color: var(--card-color);
+
+  position: relative;
+  #send-btn {
+    $offset: 1em;
+    top: $offset;
+    right: $offset;
+    @extend %btn-with-icon;
+    background: var(--send-btn-gradient);
+    svg * {
+      fill: var(--send-btn-color);
+    }
+    position: absolute;
+  }
+  hr {
+    max-width: 100%;
+    border: 0;
+    background-color: var(--darkBlue-lighter);
+  }
+  &__header {
+    @include mix.flex(column, _, center, 1em);
+  }
+  &__image {
+    height: 10em;
+    aspect-ratio: 1;
+    background-color: red;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1em;
+  }
+
+  .bio-card__name {
+    @extend %font-display;
+    font-size: 1.3em;
+  }
+  .bio-card__role {
+    font-size: 1.1em;
+  }
+
+  .bio-card__text {
+    text-align: center;
+  }
+
+  overflow: hidden;
+  footer {
+    @include mix.flex($gap: 1.5em, $justify: center);
+
+    margin-top: 2em;
+    padding-block: 2em 2em;
+
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      bottom: -1.5em;
+      background: var(--footer-gradient);
+      // z-index: -1;
+      transform: skewY(7deg);
+    }
+  }
+  &__social-link {
+    @extend %btn-with-icon;
+    z-index: 3;
+
+    background-color: var(--white);
+    transition: 200ms;
+    &:hover {
+      box-shadow: 0 0 0 1px var(--white);
+      transform: scale(1.1);
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .bio-card {
+    width: 40em;
+    padding: 0;
+
+    display: grid;
+    grid-template-columns: 14em auto;
+    grid-template-rows: auto auto;
+
+    .bio-card__text {
+      text-align: initial;
+      &::first-letter {
+        margin-left: 1em;
+      }
+    }
+    header {
+      grid-row: span 2;
+      padding: 0;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 0;
+        margin: 0;
+      }
+    }
+
+    main {
+      align-items: flex-start;
+      padding-block: 2em;
+    }
+  }
+}
