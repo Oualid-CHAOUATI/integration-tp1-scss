@@ -648,6 +648,31 @@ main {
   transform: scale(1.1);
 }
 
+#send-btn svg {
+  transition: 200ms;
+}
+#send-btn:hover svg {
+  transform: translate(20%, -20%);
+}
+
+.bio-card__image {
+  transition: 200ms;
+  outline: 0 solid var(--darkGreen-lighter);
+}
+
+.bio-card:hover .bio-card__image {
+  outline-width: 3px;
+  outline-offset: 0.5em;
+}
+
+.bio-card__social-link {
+  transition: 200ms;
+}
+.bio-card__social-link:hover {
+  box-shadow: 0 0 0 1px var(--white);
+  transform: scale(1.1);
+}
+
 @media screen and (min-width: 1200px) {
   .bio-card {
     width: 40em;
@@ -664,7 +689,6 @@ main {
   }
   .bio-card header {
     grid-row: span 2;
-    padding: 0;
   }
   .bio-card header img {
     height: 100%;
@@ -673,6 +697,7 @@ main {
        object-fit: cover;
     border-radius: 0;
     margin: 0;
+    outline: 0;
   }
   .bio-card main {
     align-items: flex-start;

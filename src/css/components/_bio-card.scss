@@ -41,6 +41,7 @@
 body {
   background: var(--body-bg) !important;
 }
+
 %btn-with-icon {
   @include mix.flex-center();
   $size: 3em;
@@ -49,6 +50,7 @@ body {
   padding: 0.5em;
   border-radius: 50%;
 }
+
 .bio-card__padding-container {
   padding-inline: 2em;
 }
@@ -77,8 +79,10 @@ main {
     right: $offset;
     @extend %btn-with-icon;
     background: var(--send-btn-gradient);
-    svg * {
-      fill: var(--send-btn-color);
+    svg {
+      * {
+        fill: var(--send-btn-color);
+      }
     }
     position: absolute;
   }
@@ -143,6 +147,39 @@ main {
   }
 }
 
+//hoover----------------------------------------------------
+#send-btn {
+  svg {
+    transition: 200ms;
+  }
+  &:hover {
+    svg {
+      $s: 20%;
+      transform: translate($s, -$s);
+    }
+  }
+}
+
+.bio-card__image {
+  transition: 200ms;
+  outline: 0 solid var(--darkGreen-lighter);
+}
+.bio-card:hover {
+  .bio-card__image {
+    outline-width: 3px;
+    outline-offset: 0.5em;
+  }
+}
+
+.bio-card__social-link {
+  transition: 200ms;
+  &:hover {
+    box-shadow: 0 0 0 1px var(--white);
+    transform: scale(1.1);
+  }
+}
+//hoover__________________________________________________________
+
 @media screen and (min-width: 1200px) {
   .bio-card {
     width: 40em;
@@ -160,13 +197,13 @@ main {
     }
     header {
       grid-row: span 2;
-      padding: 0;
       img {
         height: 100%;
         width: 100%;
         object-fit: cover;
         border-radius: 0;
         margin: 0;
+        outline: 0;
       }
     }
 
